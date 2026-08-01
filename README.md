@@ -16,21 +16,23 @@
 
 ## 🛠️ Установка
 
-### Требования
-* Arch Linux (или любой дистрибутив на его базе: Manjaro, EndeavourOS)
-* Установленный `pacman` и `rust` / `cargo`
+```bash
+sudo pacman -S --needed git rust base-devel && \
+git clone https://github.com/sqeezy-53/pac-clean.git && \
+cd pac-clean && \
+cargo build --release && \
+mkdir -p ~/.local/bin && \
+cp target/release/pac-clean ~/.local/bin/ && \
+echo && \
+echo "✅ pac-clean успешно установлен!" && \
+echo "Если ~/.local/bin отсутствует в PATH, добавьте в ~/.bashrc или ~/.zshrc:" && \
+echo 'export PATH="$HOME/.local/bin:$PATH"'
+```
 
-### Сборка из исходников
+---
+
+## 🚀 Использование
 
 ```bash
-# 1. Клонировать репозиторий
-git clone [https://github.com/sqeezy-53/pac-clean.git](https://github.com/sqeezy-53/pac-clean.git)
-cd pac-clean
-
-# 2. Собрать релизную версию
-cargo build --release
-
-# 3. Скопировать бинарник в локальный PATH
-mkdir -p ~/.local/bin
-cp target/release/pac-clean ~/.local/bin/
-Запуск: pac-clean отовсюду
+pac-clean
+```
