@@ -3,11 +3,15 @@ use std::process::Command;
 use std::io;
 
 fn main() -> Result<(), Box<dyn Error>> {
+    clean_orphans()?;
+    clean_pacman_cache()?;
+    Ok(())
+}
 
-
+fn clean_orphans() -> Result<(), Box<dyn Error>> {
     let output = Command::new("pacman")
-    .arg("-Qtdq")
-    .output()?;
+        .arg("-Qtdq")
+        .output()?;
 
     let stdout = String::from_utf8_lossy(&output.stdout);
     if stdout.trim().is_empty() {
@@ -22,10 +26,10 @@ fn main() -> Result<(), Box<dyn Error>> {
             println!("Начинаю удаление...");
 
             let status = Command::new("sudo")
-            .arg("pacman")
-            .arg("-Rns")
+                .arg("pacman")
+                .arg("-Rns")
                 .args(stdout.split_whitespace())
-            .status()?;
+                .status()?;
 
 
             if status.success() {
@@ -36,7 +40,28 @@ fn main() -> Result<(), Box<dyn Error>> {
             }
         }else {
             println!("Отмена.");
+
         }
     }
+    Ok(())
+}
+
+fn clean_pacman_cache() -> Result<(), Box<dyn Error>> {
+
+    let output = Command::new("sudo")
+        .arg("paccache")
+        .arg("-r")
+        .output()?;
+
+
+    let stdout = String::from_utf8_lossy(&output.stdout);
+
+
+    if stdout.contains("no candidate") {
+        println!("Кэш пакетов pacman уже чист (0 MiB).");
+    } else {
+        println!("{}", stdout.trim());
+    }
+
     Ok(())
 }
