@@ -16,20 +16,9 @@
 
 ## 🛠️ Установка
 
-### Требования
-* Arch Linux (или любой дистрибутив на его базе: Manjaro, EndeavourOS)
-* Установленный `pacman` и `rust` / `cargo`
+### 1. Установка зависимостей
 
-### Сборка из исходников
+Перед сборкой убедись, что в системе установлены `git`, компилятор `rust` и инструментарий сборки:
 
 ```bash
-# 1. Клонировать репозиторий
-git clone [https://github.com/sqeezy-53/pac-clean.git](https://github.com/sqeezy-53/pac-clean.git)
-cd pac-clean
-
-# 2. Собрать релизную версию
-cargo build --release
-
-# 3. Скопировать бинарник в локальный PATH
-mkdir -p ~/.local/bin
-cp target/release/pac-clean ~/.local/bin/
+sudo pacman -S --needed git rust base-devel
